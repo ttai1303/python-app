@@ -6,7 +6,7 @@ from PyQt6 import uic
 import sys
 from setup_db import *
 
-class MessageBox ():
+class MessageBox():
     def success_box(self, message) :
         box = QMessageBox()
         box.setWindowTitle("Success")
@@ -21,10 +21,10 @@ class MessageBox ():
         box.setIcon(QMessageBox.Icon.Critical)
         box.exec()
 
-class Login(MainWindow) :
+class Login(QMainWindow) :
     def __init__(self) :
         super().__init__()
-        uic.loadUi("ui/login.ui", self)
+        uic.loadUi("ui/Login.ui", self)
 
         self.email = self.findChild(QLineEdit,"txt_email")
         self.password = self.findChild(QLineEdit, "txt_password")
@@ -80,9 +80,9 @@ class Login(MainWindow) :
 class Register(QMainWindow) :
     def __init__(self) :
         super().__init__()
-        uic.loadUi("ui/register.ui", self)
+        uic.loadUi("ui/Register.ui", self)
 
-        self.name = self.findChild(QLineEdit: "txt_name")
+        self.name = self.findChild(QLineEdit, "txt_name")
         self.email = self.findChild(QLineEdit, "txt_email")
         self.password = self.findChild(QLineEdit, "txt_password")
         self.confirm_password = self.findChild(QLineEdit, "txt_conf_pwd")
@@ -156,3 +156,16 @@ class Register(QMainWindow) :
             if idx_at == -1 :
                 return False
             return '.' in s[idx_at+1:]
+        
+class Home(QMainWindow) :
+    def __init__(self, user_id) :
+        super().__init__()
+        uic.loadUi("ui/home.ui", self)
+
+        self.user_id = user_id
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    login = Login()
+    login.show()
+    sys.exit(app.exec())
