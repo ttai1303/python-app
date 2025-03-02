@@ -28,14 +28,16 @@ background-position: center;</string>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>40</y>
+      <x>310</x>
+      <y>50</y>
       <width>511</width>
       <height>571</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background: rgba(0, 0, 0, .5);</string>
+     <string notr="true">background: rgba(0, 0, 0, .5);
+border-radius: 20px;
+</string>
     </property>
     <widget class="QPushButton" name="btn_login">
      <property name="geometry">
