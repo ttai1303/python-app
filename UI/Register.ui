@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1028</width>
-    <height>625</height>
+    <width>1218</width>
+    <height>701</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -288,6 +288,28 @@ background-position: center;</string>
      <string>NETFLIX</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1221</width>
+      <height>701</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../img/background.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <zorder>label_8</zorder>
+   <zorder>widget</zorder>
+   <zorder>label_7</zorder>
   </widget>
  </widget>
  <resources/>

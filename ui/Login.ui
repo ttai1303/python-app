@@ -121,7 +121,7 @@ padding: 5px;</string>
       <string/>
      </property>
      <property name="echoMode">
-      <enum>QLineEdit::EchoMode::PasswordEchoOnEdit</enum>
+      <enum>QLineEdit::EchoMode::Password</enum>
      </property>
     </widget>
     <widget class="QLineEdit" name="txt_email">
@@ -216,9 +216,9 @@ padding: 5px;</string>
     <property name="geometry">
      <rect>
       <x>-10</x>
-      <y>20</y>
-      <width>1221</width>
-      <height>681</height>
+      <y>0</y>
+      <width>1231</width>
+      <height>701</height>
      </rect>
     </property>
     <property name="styleSheet">

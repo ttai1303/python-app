@@ -1,4 +1,4 @@
-from PyQt6 import QtWidgets, Qtcore
+from PyQt6 import QtWidgets, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 from PyQt6.QtCore import *
@@ -151,6 +151,11 @@ class Register(QMainWindow) :
         msg.success_box("Đăng ký thành công")
         self.show_login()
 
+    def show_login(self) :
+        self.login = Login()
+        self.login.show()
+        self.close()
+
     def validate_email(self,s):
             idx_at = s.find('@')
             if idx_at == -1 :
@@ -160,7 +165,7 @@ class Register(QMainWindow) :
 class Home(QMainWindow) :
     def __init__(self, user_id) :
         super().__init__()
-        uic.loadUi("ui/home.ui", self)
+        uic.loadUi("ui/mainwindow.ui", self)
 
         self.user_id = user_id
 

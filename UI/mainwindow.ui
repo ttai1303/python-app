@@ -139,121 +139,6 @@
       <normaloff>../img/user-regular.svg</normaloff>../img/user-regular.svg</iconset>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1221</width>
-      <height>721</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../img/images.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>90</y>
-      <width>411</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Segoe UI Variable</family>
-      <pointsize>10</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Phim bom tấn hành động &amp; phiêu lưu Âu - Mỹ</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>120</y>
-      <width>271</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../img/fnf8.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>120</y>
-      <width>271</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../img/jgbook.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>630</x>
-      <y>120</y>
-      <width>271</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../img/jumanji.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>910</x>
-      <y>120</y>
-      <width>271</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../img/mi5.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btn_popular">
     <property name="geometry">
      <rect>
@@ -267,97 +152,385 @@
      <string>Mới thêm</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_8">
+   <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>310</y>
-      <width>481</width>
-      <height>20</height>
+      <x>0</x>
+      <y>40</y>
+      <width>1211</width>
+      <height>651</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Segoe UI Variable</family>
-      <pointsize>10</pointsize>
-      <bold>true</bold>
-     </font>
+    <property name="currentIndex">
+     <number>0</number>
     </property>
-    <property name="text">
-     <string>Chương trình truyền hình khoa học viễn tưởng &amp; kinh dị</string>
-    </property>
+    <widget class="QWidget" name="page">
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>80</y>
+        <width>271</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/jgbook.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>80</y>
+        <width>271</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/fnf8.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>80</y>
+        <width>271</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/jumanji.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>270</y>
+        <width>481</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI Variable</family>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Chương trình truyền hình khoa học viễn tưởng &amp; kinh dị</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>870</x>
+        <y>80</y>
+        <width>271</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/mi5.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>50</y>
+        <width>411</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI Variable</family>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Phim bom tấn hành động &amp; phiêu lưu Âu - Mỹ</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>870</x>
+        <y>300</y>
+        <width>271</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/ITchap2.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>300</y>
+        <width>271</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/helix.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>300</y>
+        <width>271</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/strangerthings.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>300</y>
+        <width>271</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/escroom.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>511</width>
+        <height>351</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/fnf8-pos.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>0</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Fast &amp; Furious 8 (2017)</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>10</y>
+        <width>641</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Thời gian ra mắt: 14 tháng 04 năm 2017&lt;br/&gt;Thể loại : Hành động, phiêu lưu, tội phạm&lt;br/&gt;Độ dài: 136 phút&lt;br/&gt;Quốc gia: American&lt;br/&gt;Đạo diễn: F. Gary Gray&lt;br/&gt;Diễn viên chính: Vin Diesel, Jason Statham, Dwayne Johnson,...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <zorder>label_15</zorder>
+     <zorder>label_13</zorder>
+     <zorder>label_14</zorder>
+    </widget>
+    <widget class="QWidget" name="page_3">
+     <widget class="QSlider" name="horizontalSlider">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>560</y>
+        <width>871</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">-webkit-appearance: none; 
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: gray; /* Màu nền của thanh trượt */
+  border-radius: 4px;
+  outline: none;</string>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_16">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>560</y>
+        <width>63</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0:00:00</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider_2">
+      <property name="geometry">
+       <rect>
+        <x>960</x>
+        <y>600</y>
+        <width>111</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">-webkit-appearance: none; 
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: gray; /* Màu nền của thanh trượt */
+  border-radius: 4px;
+  outline: none;</string>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>60</y>
+        <width>921</width>
+        <height>481</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: white;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>600</y>
+        <width>31</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../img/play_btn.svg</normaloff>../img/play_btn.svg</iconset>
+      </property>
+     </widget>
+     <zorder>label_16</zorder>
+     <zorder>horizontalSlider</zorder>
+     <zorder>horizontalSlider_2</zorder>
+     <zorder>widget</zorder>
+     <zorder>pushButton</zorder>
+    </widget>
    </widget>
-   <widget class="QLabel" name="label_9">
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>340</y>
-      <width>271</width>
-      <height>161</height>
+      <x>0</x>
+      <y>-10</y>
+      <width>1221</width>
+      <height>741</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../img/strangerthings.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_10">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>340</y>
-      <width>271</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../img/helix.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_11">
-    <property name="geometry">
-     <rect>
-      <x>630</x>
-      <y>340</y>
-      <width>271</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../img/escroom.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_12">
-    <property name="geometry">
-     <rect>
-      <x>910</x>
-      <y>340</y>
-      <width>271</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../img/ITchap2.jpg</pixmap>
+     <pixmap>../img/images.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -371,17 +544,8 @@
    <zorder>btn_mymvies</zorder>
    <zorder>btn_find</zorder>
    <zorder>btn_profile</zorder>
-   <zorder>label_3</zorder>
-   <zorder>label_4</zorder>
-   <zorder>label_5</zorder>
-   <zorder>label_6</zorder>
-   <zorder>label_7</zorder>
    <zorder>btn_popular</zorder>
-   <zorder>label_8</zorder>
-   <zorder>label_9</zorder>
-   <zorder>label_10</zorder>
-   <zorder>label_11</zorder>
-   <zorder>label_12</zorder>
+   <zorder>stackedWidget</zorder>
   </widget>
  </widget>
  <resources/>
