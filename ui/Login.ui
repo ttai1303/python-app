@@ -123,6 +123,9 @@ padding: 5px;</string>
      <property name="echoMode">
       <enum>QLineEdit::EchoMode::Password</enum>
      </property>
+     <property name="placeholderText">
+      <string>Password</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="txt_email">
      <property name="enabled">
@@ -142,6 +145,9 @@ padding: 5px;</string>
      </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="placeholderText">
+      <string>Email or telephone</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_4">

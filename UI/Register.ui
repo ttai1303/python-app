@@ -123,6 +123,9 @@ padding: 5px;
       <string notr="true">border-radius: 7px;
 padding: 5px;</string>
      </property>
+     <property name="placeholderText">
+      <string>Email</string>
+     </property>
     </widget>
     <widget class="QLabel" name="label_3">
      <property name="geometry">
@@ -153,6 +156,9 @@ padding: 5px;</string>
      <property name="echoMode">
       <enum>QLineEdit::EchoMode::Password</enum>
      </property>
+     <property name="placeholderText">
+      <string>Confirm password</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="txt_password">
      <property name="geometry">
@@ -169,6 +175,9 @@ padding: 5px;</string>
      </property>
      <property name="echoMode">
       <enum>QLineEdit::EchoMode::Password</enum>
+     </property>
+     <property name="placeholderText">
+      <string>Password</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_4">
@@ -196,6 +205,9 @@ padding: 5px;</string>
      <property name="styleSheet">
       <string notr="true">border-radius: 7px;
 padding: 5px;</string>
+     </property>
+     <property name="placeholderText">
+      <string>Username</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_6">
