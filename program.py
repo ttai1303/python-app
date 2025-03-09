@@ -46,7 +46,7 @@ class Login(QMainWindow) :
 
     def login(self):
         msg = MessageBox()
-        email = self.email.text()
+        email = self.email.text().strip()
         password = self.password.text()
 
         if email == "":
@@ -106,10 +106,10 @@ class Register(QMainWindow) :
     
     def register(self) :
         msg = MessageBox()
-        name = self.name.text()
-        email = self.name.text()
-        password = self.password.text()
-        confirm_password = self.confirm_password.text()
+        name = self.name.text().strip()
+        email = self.name.text().strip()
+        password = self.password.text().strip()
+        confirm_password = self.confirm_password.text().strip()
 
         if name == "" :
             msg.error_box("Họ tên không được để trống")
@@ -169,10 +169,15 @@ class Home(QMainWindow) :
         
         self.main_widget = self.findChild(QStackedWidget, "main_widget")
         self.btn_nav_home = self.findChild(QPushButton, "btn_nav_home")
-        self.btn_nav_account = self.findChild(QPushButton, "btn_nav_account")
+        self.btn_nav_play = self.findChild(QPushButton, "btn_nav_play")
+        self.btn_watch = self.findChild(QPushButton, "btn_watch")
+        self.btn_nav_profile = self.findChild(QPushButton, "btn_nav_profile")
         
+        self.main_widget.setCurrentIndex(0)
         self.btn_nav_home.clicked.connect(lambda: self.navMainScreen(0))
-        self.btn_nav_account.clicked.connect(lambda: self.navMainScreen(1))
+        self.btn_nav_play.clicked.connect(lambda: self.navMainScreen(1))
+        self.btn_watch.clicked.connect(lambda: self.navMainScreen(2))
+        self.btn_nav_profile.clicked.connect(lambda: self.navMainScreen(3))
 
         self.user_id = user_id
         self.user = get_user_by_id(user_id)
