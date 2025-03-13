@@ -28,8 +28,8 @@ background-position: center;</string>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>50</y>
+      <x>370</x>
+      <y>60</y>
       <width>511</width>
       <height>571</height>
      </rect>
@@ -272,10 +272,10 @@ background-position: center;</string>
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>281</width>
-      <height>91</height>
+      <x>40</x>
+      <y>60</y>
+      <width>291</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">

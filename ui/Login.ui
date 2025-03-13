@@ -24,8 +24,8 @@ background-position: center;</string>
      <rect>
       <x>370</x>
       <y>60</y>
-      <width>461</width>
-      <height>561</height>
+      <width>511</width>
+      <height>571</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -90,7 +90,7 @@ border-radius: 20px;
       <rect>
        <x>100</x>
        <y>320</y>
-       <width>281</width>
+       <width>291</width>
        <height>41</height>
       </rect>
      </property>
@@ -109,7 +109,7 @@ padding: 5px;
       <rect>
        <x>100</x>
        <y>250</y>
-       <width>281</width>
+       <width>291</width>
        <height>51</height>
       </rect>
      </property>
@@ -135,7 +135,7 @@ padding: 5px;</string>
       <rect>
        <x>100</x>
        <y>150</y>
-       <width>281</width>
+       <width>291</width>
        <height>51</height>
       </rect>
      </property>
@@ -172,7 +172,7 @@ padding: 5px;</string>
     <widget class="QPushButton" name="btn_eye_p">
      <property name="geometry">
       <rect>
-       <x>330</x>
+       <x>340</x>
        <y>260</y>
        <width>41</width>
        <height>29</height>
