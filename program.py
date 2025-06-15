@@ -178,6 +178,7 @@ class Home(QMainWindow) :
         self.btn_logout = self.findChild(QPushButton, "btn_logout")
 
         self.btn_avatar = self.findChild(QPushButton,"btn_avatar")
+        self.lb_avatar = self.findChild(QLabel,"lb_avatar")
         self.btn_avatar.clicked.connect(self.update_avatar)
 
         self.main_widget.setCurrentIndex(0)
@@ -186,6 +187,8 @@ class Home(QMainWindow) :
         self.btn_watch.clicked.connect(lambda: self.navMainScreen(2))
         self.btn_nav_profile.clicked.connect(lambda: self.navMainScreen(3))
         self.btn_logout.clicked.connect(self.show_login)
+    
+
 
     def navMainScreen(self, index):
         self.main_widget.setCurrentIndex(index)
@@ -193,9 +196,11 @@ class Home(QMainWindow) :
     def loadAccountInfo(self):
         self.txt_name = self.findChild(QLineEdit, "txt_name")
         self.txt_email = self.findChild(QLineEdit, "txt_email")
-        
+        self.txt_telephone = self.findChild
+
         self.txt_name.setText(self.user["name"])
         self.txt_email.setText(self.user["email"])
+        self.lb_avatar.setPixmap(QPixmap(self.user("avatar")))
 
     def show_login(self) :
         self.login = Login()
@@ -203,17 +208,15 @@ class Home(QMainWindow) :
         self.close()
     
     def update_avatar(self):
-        file = QFileDialog.getOpenFileName(self,"Select Image","","Image Files(*.png *.jpg *.jpeg *.bmp)")
+        file,_ = QFileDialog.getOpenFileName(self,"Select Image","","Image Files(*.png *.jpg *.jpeg *.bmp)")
         if file :
             self.user["avatar"] = file
-            print(file)
-            self.btn_avatar.setIcon(QIcon(file))
+            self.lb_avatar.setPixmap(QPixmap(file))
             update_user_avatar(self.user_id, file)
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     login = Login()
-    login = Home(1)
+    # login = Home(1)
     login.show()
     sys.exit(app.exec())
