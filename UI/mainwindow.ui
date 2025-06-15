@@ -646,10 +646,10 @@
      <widget class="QWidget" name="gridWidget" native="true">
       <property name="geometry">
        <rect>
-        <x>290</x>
-        <y>70</y>
-        <width>731</width>
-        <height>451</height>
+        <x>240</x>
+        <y>40</y>
+        <width>891</width>
+        <height>531</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -772,10 +772,10 @@ padding: 5px;</string>
            <string>Telephone</string>
           </property>
          </widget>
-         <widget class="QDateEdit" name="dateEdit">
+         <widget class="QDateEdit" name="date_birthday">
           <property name="geometry">
            <rect>
-            <x>140</x>
+            <x>130</x>
             <y>380</y>
             <width>101</width>
             <height>31</height>
@@ -802,6 +802,58 @@ padding: 5px;</string>
           <property name="text">
            <string>Birthday</string>
           </property>
+         </widget>
+         <widget class="QPushButton" name="btn_save">
+          <property name="geometry">
+           <rect>
+            <x>580</x>
+            <y>390</y>
+            <width>71</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Save</string>
+          </property>
+         </widget>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="geometry">
+           <rect>
+            <x>260</x>
+            <y>360</y>
+            <width>201</width>
+            <height>121</height>
+           </rect>
+          </property>
+          <property name="title">
+           <string>Gender</string>
+          </property>
+          <widget class="QRadioButton" name="btn_radioMale">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>30</y>
+             <width>112</width>
+             <height>26</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Male</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="btn_radioFemale">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>70</y>
+             <width>112</width>
+             <height>26</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Female</string>
+           </property>
+          </widget>
          </widget>
         </widget>
        </item>

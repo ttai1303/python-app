@@ -176,7 +176,8 @@ class Home(QMainWindow) :
         self.btn_watch = self.findChild(QPushButton, "btn_watch")
         self.btn_nav_profile = self.findChild(QPushButton, "btn_nav_profile")
         self.btn_logout = self.findChild(QPushButton, "btn_logout")
-
+        self.btn_radioMale = self.findChild(QRadioButton, "radio_male")
+        self.btn_radioFemale = self.findChild(QRadioButton, "radio_female")
         self.btn_avatar = self.findChild(QPushButton,"btn_avatar")
         self.lb_avatar = self.findChild(QLabel,"lb_avatar")
         self.btn_avatar.clicked.connect(self.update_avatar)
@@ -196,16 +197,32 @@ class Home(QMainWindow) :
     def loadAccountInfo(self):
         self.txt_name = self.findChild(QLineEdit, "txt_name")
         self.txt_email = self.findChild(QLineEdit, "txt_email")
-        self.txt_telephone = self.findChild
+        self.txt_telephone = self.findChild(QLineEdit, "txt_telephone")
+        self.date_birthday = self.findChild(QDateEdit, "date_birthday")
+        self.btn_radioMale = self.findChild(QRadioButton, "btn_radioMale")
+        self.btn_radioFemale = self.findChild(QRadioButton, "btn_radioFemale")
+        self.lb_avatar = self.findChild(QLabel, "lb_avatar")
 
         self.txt_name.setText(self.user["name"])
         self.txt_email.setText(self.user["email"])
+        self.txt_telephone.setText(self.user["telephone"])
         self.lb_avatar.setPixmap(QPixmap(self.user("avatar")))
 
     def show_login(self) :
         self.login = Login()
         self.login.show()
         self.close()
+    
+    def save_info(self):
+        gender = "Nam" if self.radioMale.isChecked() else "Nữ" if self.radioFemale.isChecked() else "Không rõ"
+        info = (
+            f"Username: {self.username.text()}\n"
+            f"Email: {self.email.text()}\n"
+            f"Telephone: {self.telephone.text()}\n"
+            f"Birthday: {self.birthday.date().toString('yyyy-MM-dd')}\n"
+            f"Gender: {gender}"
+        )
+        QMessageBox.information(self, "Saved Info", info)
     
     def update_avatar(self):
         file,_ = QFileDialog.getOpenFileName(self,"Select Image","","Image Files(*.png *.jpg *.jpeg *.bmp)")
@@ -217,6 +234,6 @@ class Home(QMainWindow) :
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     login = Login()
-    # login = Home(1)
+    login = Home(1)
     login.show()
     sys.exit(app.exec())
