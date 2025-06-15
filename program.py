@@ -166,21 +166,26 @@ class Home(QMainWindow) :
     def __init__(self, user_id) :
         super().__init__()
         uic.loadUi("ui/mainwindow.ui", self)
+
+        self.user_id = user_id
+        self.user = get_user_by_id(user_id)
         
         self.main_widget = self.findChild(QStackedWidget, "main_widget")
         self.btn_nav_home = self.findChild(QPushButton, "btn_nav_home")
         self.btn_nav_play = self.findChild(QPushButton, "btn_nav_play")
         self.btn_watch = self.findChild(QPushButton, "btn_watch")
         self.btn_nav_profile = self.findChild(QPushButton, "btn_nav_profile")
-        
+        self.btn_logout = self.findChild(QPushButton, "btn_logout")
+
+        self.btn_avatar = self.findChild(QPushButton,"btn_avatar")
+        self.btn_avatar.clicked.connect(self.update_avatar)
+
         self.main_widget.setCurrentIndex(0)
         self.btn_nav_home.clicked.connect(lambda: self.navMainScreen(0))
         self.btn_nav_play.clicked.connect(lambda: self.navMainScreen(1))
         self.btn_watch.clicked.connect(lambda: self.navMainScreen(2))
         self.btn_nav_profile.clicked.connect(lambda: self.navMainScreen(3))
-
-        self.user_id = user_id
-        self.user = get_user_by_id(user_id)
+        self.btn_logout.clicked.connect(self.show_login)
 
     def navMainScreen(self, index):
         self.main_widget.setCurrentIndex(index)
@@ -192,9 +197,23 @@ class Home(QMainWindow) :
         self.txt_name.setText(self.user["name"])
         self.txt_email.setText(self.user["email"])
 
+    def show_login(self) :
+        self.login = Login()
+        self.login.show()
+        self.close()
+    
+    def update_avatar(self):
+        file = QFileDialog.getOpenFileName(self,"Select Image","","Image Files(*.png *.jpg *.jpeg *.bmp)")
+        if file :
+            self.user["avatar"] = file
+            print(file)
+            self.btn_avatar.setIcon(QIcon(file))
+            update_user_avatar(self.user_id, file)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     login = Login()
+    login = Home(1)
     login.show()
     sys.exit(app.exec())
