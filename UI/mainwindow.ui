@@ -845,13 +845,26 @@ padding: 5px;</string>
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>70</y>
+             <y>60</y>
              <width>112</width>
              <height>26</height>
             </rect>
            </property>
            <property name="text">
             <string>Female</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="radio_other">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>90</y>
+             <width>112</width>
+             <height>26</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Other</string>
            </property>
           </widget>
          </widget>

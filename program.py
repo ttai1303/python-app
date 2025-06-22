@@ -219,14 +219,14 @@ class Home(QMainWindow) :
         name = self.txt_name.text()
         email = self.txt_email.text()
         telephone = self.txt_telephone.text()
-        birthday = self.date_birthday.date().toString("yyyy-MM-dd")
+        birthday = self.date_birthday.date().toString("dd-MM-yyyy")
 
         if self.radio_male.isChecked():
-            gender = "male"
+            gender = "Male"
         elif self.radio_female.isChecked():
-            gender = "female"
+            gender = "Female"
         else:
-            gender = "other"
+            gender = "Other"
 
         self.user["name"] = name
         self.user["email"] = email
