@@ -168,7 +168,8 @@ class Home(QMainWindow) :
         uic.loadUi("ui/mainwindow.ui", self)
 
         self.user_id = user_id
-        self.user = get_user_by_id(user_id) 
+        self.user = get_user_by_id(user_id)
+        self.loadAccountInfo()
         
         self.main_widget = self.findChild(QStackedWidget, "main_widget")
         self.btn_nav_home = self.findChild(QPushButton, "btn_nav_home")
@@ -201,14 +202,28 @@ class Home(QMainWindow) :
         self.txt_email = self.findChild(QLineEdit, "txt_email")
         self.txt_telephone = self.findChild(QLineEdit, "txt_telephone")
         self.date_birthday = self.findChild(QDateEdit, "date_birthday")
-        self.btn_radiomale = self.findChild(QRadioButton, "btn_radioMale")
-        self.btn_radiofemale = self.findChild(QRadioButton, "btn_radioFemale")
+        self.radio_male = self.findChild(QRadioButton, "radio_male")
+        self.radio_female = self.findChild(QRadioButton, "radio_female")
         self.lb_avatar = self.findChild(QLabel, "lb_avatar")
 
         self.txt_name.setText(self.user["name"])
         self.txt_email.setText(self.user["email"])
-        self.txt_telephone.setText(self.user["telephone"])
-        self.lb_avatar.setPixmap(QPixmap(self.user("avatar")))
+        self.txt_telephone.setText(str(self.user["telephone"]))
+
+        birthday_str = self.user.get("birthday", "")
+        birthday = QDate.fromString(birthday_str, "dd-MM-yyyy")
+        self.date_birthday.setDate(birthday if birthday.isValid() else QDate.currentDate())
+
+        gender = self.user.get("gender", "").lower()
+        self.radio_male.setChecked(gender == "male")
+        self.radio_female.setChecked(gender == "female")
+
+        avatar = self.user.get("avatar", "")
+        if avatar:
+            pixmap = QPixmap(avatar)
+            if not pixmap.isNull():
+                pixmap = pixmap.scaled(self.lb_avatar.width(), self.lb_avatar.height(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+                self.lb_avatar.setPixmap(pixmap)
 
     def show_login(self) :
         self.login = Login()
@@ -229,11 +244,13 @@ class Home(QMainWindow) :
             gender = "Other"
 
         self.user["name"] = name
+        self.user["gender"] = gender
         self.user["email"] = email
         self.user["telephone"] = telephone
         self.user["birthday"] = birthday
-        self.user["gender"] = gender
+        
 
+        update_user_in_db(self.user_id, name, gender, email, telephone, birthday)
         QMessageBox.information(self, "Cập nhật", "Thông tin người dùng đã được lưu.")
     
     def update_avatar(self):
@@ -246,6 +263,5 @@ class Home(QMainWindow) :
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     login = Login()
-    login = Home(1)
     login.show()
     sys.exit(app.exec())
