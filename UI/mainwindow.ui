@@ -696,7 +696,7 @@ padding: 5px;</string>
            <string>Username</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="txt_email">
           <property name="geometry">
            <rect>
             <x>50</x>
@@ -713,7 +713,7 @@ padding: 5px;</string>
            <string>Email</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit_3">
+         <widget class="QLineEdit" name="txt_telephone">
           <property name="geometry">
            <rect>
             <x>50</x>
@@ -828,7 +828,7 @@ padding: 5px;</string>
           <property name="title">
            <string>Gender</string>
           </property>
-          <widget class="QRadioButton" name="btn_radioMale">
+          <widget class="QRadioButton" name="radio_male">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -841,7 +841,7 @@ padding: 5px;</string>
             <string>Male</string>
            </property>
           </widget>
-          <widget class="QRadioButton" name="btn_radioFemale">
+          <widget class="QRadioButton" name="radio_female">
            <property name="geometry">
             <rect>
              <x>10</x>

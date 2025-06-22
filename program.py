@@ -168,7 +168,7 @@ class Home(QMainWindow) :
         uic.loadUi("ui/mainwindow.ui", self)
 
         self.user_id = user_id
-        self.user = get_user_by_id(user_id)
+        self.user = get_user_by_id(user_id) 
         
         self.main_widget = self.findChild(QStackedWidget, "main_widget")
         self.btn_nav_home = self.findChild(QPushButton, "btn_nav_home")
@@ -180,6 +180,7 @@ class Home(QMainWindow) :
         self.btn_radioFemale = self.findChild(QRadioButton, "radio_female")
         self.btn_avatar = self.findChild(QPushButton,"btn_avatar")
         self.lb_avatar = self.findChild(QLabel,"lb_avatar")
+        self.btn_save = self.findChild(QPushButton, "btn_save")
         self.btn_avatar.clicked.connect(self.update_avatar)
 
         self.main_widget.setCurrentIndex(0)
@@ -188,6 +189,7 @@ class Home(QMainWindow) :
         self.btn_watch.clicked.connect(lambda: self.navMainScreen(2))
         self.btn_nav_profile.clicked.connect(lambda: self.navMainScreen(3))
         self.btn_logout.clicked.connect(self.show_login)
+        self.btn_save.clicked.connect(self.save_info)
     
 
 
@@ -199,8 +201,8 @@ class Home(QMainWindow) :
         self.txt_email = self.findChild(QLineEdit, "txt_email")
         self.txt_telephone = self.findChild(QLineEdit, "txt_telephone")
         self.date_birthday = self.findChild(QDateEdit, "date_birthday")
-        self.btn_radioMale = self.findChild(QRadioButton, "btn_radioMale")
-        self.btn_radioFemale = self.findChild(QRadioButton, "btn_radioFemale")
+        self.btn_radiomale = self.findChild(QRadioButton, "btn_radioMale")
+        self.btn_radiofemale = self.findChild(QRadioButton, "btn_radioFemale")
         self.lb_avatar = self.findChild(QLabel, "lb_avatar")
 
         self.txt_name.setText(self.user["name"])
@@ -211,18 +213,28 @@ class Home(QMainWindow) :
     def show_login(self) :
         self.login = Login()
         self.login.show()
-        self.close()
-    
+        self.close()    
+
     def save_info(self):
-        gender = "Nam" if self.radioMale.isChecked() else "Nữ" if self.radioFemale.isChecked() else "Không rõ"
-        info = (
-            f"Username: {self.username.text()}\n"
-            f"Email: {self.email.text()}\n"
-            f"Telephone: {self.telephone.text()}\n"
-            f"Birthday: {self.birthday.date().toString('yyyy-MM-dd')}\n"
-            f"Gender: {gender}"
-        )
-        QMessageBox.information(self, "Saved Info", info)
+        name = self.txt_name.text()
+        email = self.txt_email.text()
+        telephone = self.txt_telephone.text()
+        birthday = self.date_birthday.date().toString("yyyy-MM-dd")
+
+        if self.radio_male.isChecked():
+            gender = "male"
+        elif self.radio_female.isChecked():
+            gender = "female"
+        else:
+            gender = "other"
+
+        self.user["name"] = name
+        self.user["email"] = email
+        self.user["telephone"] = telephone
+        self.user["birthday"] = birthday
+        self.user["gender"] = gender
+
+        QMessageBox.information(self, "Cập nhật", "Thông tin người dùng đã được lưu.")
     
     def update_avatar(self):
         file,_ = QFileDialog.getOpenFileName(self,"Select Image","","Image Files(*.png *.jpg *.jpeg *.bmp)")
