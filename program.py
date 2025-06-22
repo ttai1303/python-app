@@ -168,7 +168,7 @@ class Home(QMainWindow) :
         uic.loadUi("ui/mainwindow.ui", self)
 
         self.user_id = user_id
-        self.user = get_user_by_id(user_id)
+        self.user = get_user_by_id(user_id) 
         
         self.main_widget = self.findChild(QStackedWidget, "main_widget")
         self.btn_nav_home = self.findChild(QPushButton, "btn_nav_home")
@@ -176,9 +176,11 @@ class Home(QMainWindow) :
         self.btn_watch = self.findChild(QPushButton, "btn_watch")
         self.btn_nav_profile = self.findChild(QPushButton, "btn_nav_profile")
         self.btn_logout = self.findChild(QPushButton, "btn_logout")
-
+        self.btn_radioMale = self.findChild(QRadioButton, "radio_male")
+        self.btn_radioFemale = self.findChild(QRadioButton, "radio_female")
         self.btn_avatar = self.findChild(QPushButton,"btn_avatar")
         self.lb_avatar = self.findChild(QLabel,"lb_avatar")
+        self.btn_save = self.findChild(QPushButton, "btn_save")
         self.btn_avatar.clicked.connect(self.update_avatar)
 
         self.main_widget.setCurrentIndex(0)
@@ -187,6 +189,7 @@ class Home(QMainWindow) :
         self.btn_watch.clicked.connect(lambda: self.navMainScreen(2))
         self.btn_nav_profile.clicked.connect(lambda: self.navMainScreen(3))
         self.btn_logout.clicked.connect(self.show_login)
+        self.btn_save.clicked.connect(self.save_info)
     
 
 
@@ -196,16 +199,42 @@ class Home(QMainWindow) :
     def loadAccountInfo(self):
         self.txt_name = self.findChild(QLineEdit, "txt_name")
         self.txt_email = self.findChild(QLineEdit, "txt_email")
-        self.txt_telephone = self.findChild
+        self.txt_telephone = self.findChild(QLineEdit, "txt_telephone")
+        self.date_birthday = self.findChild(QDateEdit, "date_birthday")
+        self.btn_radiomale = self.findChild(QRadioButton, "btn_radioMale")
+        self.btn_radiofemale = self.findChild(QRadioButton, "btn_radioFemale")
+        self.lb_avatar = self.findChild(QLabel, "lb_avatar")
 
         self.txt_name.setText(self.user["name"])
         self.txt_email.setText(self.user["email"])
+        self.txt_telephone.setText(self.user["telephone"])
         self.lb_avatar.setPixmap(QPixmap(self.user("avatar")))
 
     def show_login(self) :
         self.login = Login()
         self.login.show()
-        self.close()
+        self.close()    
+
+    def save_info(self):
+        name = self.txt_name.text()
+        email = self.txt_email.text()
+        telephone = self.txt_telephone.text()
+        birthday = self.date_birthday.date().toString("dd-MM-yyyy")
+
+        if self.radio_male.isChecked():
+            gender = "Male"
+        elif self.radio_female.isChecked():
+            gender = "Female"
+        else:
+            gender = "Other"
+
+        self.user["name"] = name
+        self.user["email"] = email
+        self.user["telephone"] = telephone
+        self.user["birthday"] = birthday
+        self.user["gender"] = gender
+
+        QMessageBox.information(self, "Cập nhật", "Thông tin người dùng đã được lưu.")
     
     def update_avatar(self):
         file,_ = QFileDialog.getOpenFileName(self,"Select Image","","Image Files(*.png *.jpg *.jpeg *.bmp)")
@@ -217,6 +246,6 @@ class Home(QMainWindow) :
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     login = Login()
-    # login = Home(1)
+    login = Home(1)
     login.show()
     sys.exit(app.exec())
