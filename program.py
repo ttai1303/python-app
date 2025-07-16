@@ -209,6 +209,9 @@ class MovieItemWidget(QWidget):
         # Set favorite icon
         self.update_favorite_icon()
         
+        # Giới hạn kích thước widget để không bị giãn
+        self.setFixedSize(350, 250)
+        
     def set_user_id(self, user_id):
         self.user_id = user_id
         self.update_favorite_icon()
@@ -255,14 +258,14 @@ class Home(QMainWindow) :
         self.btn_avatar = self.findChild(QPushButton,"btn_avatar")
         self.lb_avatar = self.findChild(QLabel,"lb_avatar")
         self.btn_save = self.findChild(QPushButton, "btn_save")
-        self.btn_favorite = self.findChild(QPushButton, "btn_mymvies")
+        self.btn_mymvies = self.findChild(QPushButton, "btn_mymvies")
+        self.btn_mymvies.clicked.connect(lambda: (self.main_widget.setCurrentIndex(4), self.showFavorites()))
         self.btn_avatar.clicked.connect(self.update_avatar)
 
         self.main_widget.setCurrentIndex(0)
         self.btn_nav_home.clicked.connect(lambda: self.navMainScreen(0))
         self.btn_watch.clicked.connect(lambda: self.navMainScreen(2))
         self.btn_nav_profile.clicked.connect(lambda: self.navMainScreen(3))
-        self.btn_favorite.clicked.connect(self.showFavorites)
         self.btn_logout.clicked.connect(self.show_login)
         self.btn_save.clicked.connect(self.save_info)
         
@@ -364,8 +367,9 @@ class Home(QMainWindow) :
         
         self.movieItem = QWidget()
         self.gridLayout = QGridLayout(self.movieItem)
-        self.gridLayout.setContentsMargins(10, 10, 10, 10)
-        self.gridLayout.setSpacing(10)
+        self.gridLayout.setContentsMargins(24, 24, 24, 24)  # lề trái, trên, phải, dưới
+        self.gridLayout.setSpacing(32)  # khoảng cách giữa các item
+        self.gridLayout.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
 
         self.movieItem.setLayout(self.gridLayout)
         self.movieList.setWidget(self.movieItem)
@@ -402,8 +406,9 @@ class Home(QMainWindow) :
         
         self.favoriteItem = QWidget()
         self.favoriteLayout = QGridLayout(self.favoriteItem)
-        self.favoriteLayout.setContentsMargins(10, 10, 10, 10)
-        self.favoriteLayout.setSpacing(10)
+        self.favoriteLayout.setContentsMargins(24, 24, 24, 24)  # lề trái, trên, phải, dưới
+        self.favoriteLayout.setSpacing(32)  # khoảng cách giữa các item
+        self.favoriteLayout.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
         
         self.favoriteItem.setLayout(self.favoriteLayout)
         self.favoriteList.setWidget(self.favoriteItem)
@@ -473,17 +478,18 @@ class Home(QMainWindow) :
         if movies:
             self.renderMovieList(movies)
         
+    def clear_layout(self, layout):
+        while layout.count():
+            child = layout.takeAt(0)
+            if child.widget():
+                child.widget().setParent(None)
+
     def renderMovieList(self, movie_list: list):
-        # Clear previous search results
-        for i in reversed(range(self.gridLayout.count())):
-            widgetToRemove = self.gridLayout.itemAt(i).widget()
-            if widgetToRemove:
-                self.gridLayout.removeWidget(widgetToRemove)
-                widgetToRemove.setParent(None)
-            
+        self.clear_layout(self.gridLayout)
         row = 0
         column = 0
-        for movie in movie_list:
+        count = len(movie_list)
+        for i, movie in enumerate(movie_list):
             itemWidget = MovieItemWidget(
                 movie["id"], 
                 movie["title"], 
@@ -491,16 +497,16 @@ class Home(QMainWindow) :
                 movie["video_path"],  
                 movie.get("description", "")
             )
-            itemWidget.set_user_id(self.user_id)  # Set user_id for the widget
+            itemWidget.set_user_id(self.user_id)
             itemWidget.signal_detail_movie.connect(self.catch_detail_movie)
             itemWidget.signal_play_movie.connect(self.catch_play_movie)
-            itemWidget.signal_favorite_changed.connect(self.on_favorite_changed)  # Connect new signal
+            itemWidget.signal_favorite_changed.connect(self.on_favorite_changed)
             self.gridLayout.addWidget(itemWidget, row, column)
             column += 1
             if column == 3:
                 row += 1
                 column = 0
-    
+
     def search_movie(self):
         name = self.txt_search.text()
         movie_list = get_video_by_name(name)
@@ -663,27 +669,18 @@ class Home(QMainWindow) :
         self.main_widget.setCurrentIndex(page)
 
     def showFavorites(self):
-        # Get favorite movies
         favorite_movies = get_user_favorites(self.user_id)
-        
-        # Clear previous items
-        for i in reversed(range(self.favoriteLayout.count())):
-            widgetToRemove = self.favoriteLayout.itemAt(i).widget()
-            if widgetToRemove:
-                self.favoriteLayout.removeWidget(widgetToRemove)
-                widgetToRemove.setParent(None)
-                
+        self.clear_layout(self.favoriteLayout)
+        count = len(favorite_movies) if favorite_movies else 0
         if not favorite_movies:
-            # Show empty message
             label = QLabel("You haven't added any titles to your list yet.")
             label.setStyleSheet("color: white; font-family: Geist; font-size: 16px;")
             label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            self.favoriteLayout.addWidget(label)
+            self.favoriteLayout.addWidget(label, 0, 0, 1, 3)
         else:
-            # Add movies to grid
             row = 0
             column = 0
-            for movie in favorite_movies:
+            for i, movie in enumerate(favorite_movies):
                 itemWidget = MovieItemWidget(
                     movie["id"], 
                     movie["title"], 
@@ -691,17 +688,15 @@ class Home(QMainWindow) :
                     movie["video_path"],  
                     movie.get("description", "")
                 )
-                itemWidget.set_user_id(self.user_id)  # Set user_id for the widget
+                itemWidget.set_user_id(self.user_id)
                 itemWidget.signal_detail_movie.connect(self.catch_detail_movie)
                 itemWidget.signal_play_movie.connect(self.catch_play_movie)
-                itemWidget.signal_favorite_changed.connect(self.on_favorite_changed)  # Connect new signal
+                itemWidget.signal_favorite_changed.connect(self.on_favorite_changed)
                 self.favoriteLayout.addWidget(itemWidget, row, column)
                 column += 1
                 if column == 3:
                     row += 1
                     column = 0
-        
-        # Switch to favorites page
         self.main_widget.setCurrentIndex(4)
         
     def on_favorite_changed(self):
