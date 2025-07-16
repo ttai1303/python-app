@@ -8,6 +8,8 @@ from PyQt6.QtMultimediaWidgets import *
 import sys
 from setup_db import *
 import os
+import requests
+from io import BytesIO
 
 def normalize_path(path):
     # Convert path separators to system-specific format
@@ -187,7 +189,7 @@ class MovieItemWidget(QWidget):
         self.user_id = 1  # We'll get this from Main class
         
         # Load UI
-        uic.loadUi('ui/movie_item.ui', self)
+        uic.loadUi('ui/item.ui', self)
         
         # Set data
         self.titleLabel.setText(title)
@@ -201,6 +203,8 @@ class MovieItemWidget(QWidget):
         self.infoButton.clicked.connect(self.show_detail)
         self.playButton.clicked.connect(self.play_movie)
         self.btn_favorite.clicked.connect(self.toggle_favorite)
+        
+        self.setMinimumSize(380, 250)
         
         # Set favorite icon
         self.update_favorite_icon()
@@ -238,6 +242,8 @@ class Home(QMainWindow) :
         self.user = get_user_by_id(user_id)
         self.loadAccountInfo()
         
+        self.msg = MessageBox()
+        
         self.main_widget = self.findChild(QStackedWidget, "main_widget")
         self.btn_nav_home = self.findChild(QPushButton, "btn_nav_home")
         self.btn_nav_play = self.findChild(QPushButton, "btn_nav_play")
@@ -249,18 +255,22 @@ class Home(QMainWindow) :
         self.btn_avatar = self.findChild(QPushButton,"btn_avatar")
         self.lb_avatar = self.findChild(QLabel,"lb_avatar")
         self.btn_save = self.findChild(QPushButton, "btn_save")
+        self.btn_favorite = self.findChild(QPushButton, "btn_mymvies")
         self.btn_avatar.clicked.connect(self.update_avatar)
 
         self.main_widget.setCurrentIndex(0)
         self.btn_nav_home.clicked.connect(lambda: self.navMainScreen(0))
-        self.btn_nav_play.clicked.connect(lambda: self.navMainScreen(1))
         self.btn_watch.clicked.connect(lambda: self.navMainScreen(2))
         self.btn_nav_profile.clicked.connect(lambda: self.navMainScreen(3))
+        self.btn_favorite.clicked.connect(self.showFavorites)
         self.btn_logout.clicked.connect(self.show_login)
         self.btn_save.clicked.connect(self.save_info)
-    
-
-
+        
+        # Thay thế video_container bằng videoWidget
+        self.videoWidget = self.findChild(QWidget, "videoWidget")
+        self.setupUI()
+        self.loadMovies()
+        
     def navMainScreen(self, index):
         self.main_widget.setCurrentIndex(index)
         
@@ -361,10 +371,10 @@ class Home(QMainWindow) :
         self.movieList.setWidget(self.movieItem)
         self.movieList.setWidgetResizable(True)
         
-        # Add movie list to video container
+        # Add movie list to videoWidget (thay vì video_container)
         containerLayout = QVBoxLayout()
         containerLayout.addWidget(self.movieList)
-        self.video_container.setLayout(containerLayout)
+        self.videoWidget.setLayout(containerLayout)
         
         # Setup favorite container with scroll area
         self.favoriteList = QScrollArea()
@@ -418,7 +428,6 @@ class Home(QMainWindow) :
         self.timeLabel = self.findChild(QLabel, 'timeLabel')
         self.durationBar = self.findChild(QSlider, 'durationBar')
         self.volumeBar = self.findChild(QSlider, 'volumeBar')
-        self.videoName = self.findChild(QLabel, 'videoName')
         self.playBtn = self.findChild(QPushButton, 'playBtn')
         
         # Load icons
@@ -442,16 +451,19 @@ class Home(QMainWindow) :
         self.playBtn.clicked.connect(self.play)
         self.volumeBtn.clicked.connect(self.toggleMute)
         
-        # Setup video widget
-        placeholder = self.findChild(QWidget, 'videoWidget')
-        self.videoWidget = QVideoWidget()
-        self.videoWidget.setGeometry(placeholder.geometry())
-        self.videoWidget.setParent(placeholder.parentWidget())
-        placeholder.hide()
-        
-        # Setup media player
+        self.videoContainer = self.findChild(QWidget, "video_container")
+        # Tạo layout nếu chưa có
+        if self.videoContainer.layout() is None:
+            self.videoLayout = QVBoxLayout()
+            self.videoContainer.setLayout(self.videoLayout)
+        else:
+            self.videoLayout = self.videoContainer.layout()
+        # Tạo QVideoWidget và add vào layout
+        self.videoWidgetPlayer = QVideoWidget()
+        self.videoLayout.addWidget(self.videoWidgetPlayer)
+        # Tạo media player và audio output
         self.mediaPlayer = QMediaPlayer(self)
-        self.mediaPlayer.setVideoOutput(self.videoWidget)
+        self.mediaPlayer.setVideoOutput(self.videoWidgetPlayer)
         self.audioOutput = QAudioOutput(self)
         self.mediaPlayer.setAudioOutput(self.audioOutput)
 
@@ -475,7 +487,7 @@ class Home(QMainWindow) :
             itemWidget = MovieItemWidget(
                 movie["id"], 
                 movie["title"], 
-                movie["banner"],  
+                movie["banner_path"],  
                 movie["video_path"],  
                 movie.get("description", "")
             )
@@ -498,7 +510,6 @@ class Home(QMainWindow) :
         movie = get_video_by_id(movie_id)
         if not movie:
             return
-            
         # Find all the label widgets
         self.lbl_name = self.findChild(QLabel, "lbl_detail_name")
         self.lbl_director = self.findChild(QLabel, "lbl_detail_director")
@@ -507,41 +518,39 @@ class Home(QMainWindow) :
         self.lbl_description = self.findChild(QLabel, "lbl_detail_description")
         self.lbl_rating = self.findChild(QLabel, "lbl_detail_rating")
         self.lbl_duration = self.findChild(QLabel, "lbl_detail_duration")
-        self.lbl_age_rating = self.findChild(QLabel, "lbl_detail_age_rating")
+        self.lbl_status = self.findChild(QLabel, "lbl_detail_status")
         self.lbl_main_actor = self.findChild(QLabel, "lbl_detail_main_actor")
         self.lbl_image = self.findChild(QLabel, "lbl_detail_image")
-        
+
         # Set the text for each label
-        self.lbl_name.setText(movie["title"])
-        self.lbl_director.setText(f"Director: {movie.get('director', 'N/A')}")
-        self.lbl_release_date.setText(f"Release Date: {movie.get('release_date', 'N/A')}")
-        self.lbl_genre.setText(f"Genre: {movie.get('genre', 'N/A')}")
-        self.lbl_rating.setText(f"Rating: {movie.get('rating', 'N/A')}")
-        self.lbl_duration.setText(f"Duration: {movie.get('duration', 'N/A')}")
-        self.lbl_age_rating.setText(f"Age Rating: {movie.get('age_rating', 'N/A')}")
-        self.lbl_main_actor.setText(f"Main Actor: {movie.get('main_actor', 'N/A')}")
-        
-        # Set the banner image
-        if movie.get('banner'):
-            self.lbl_image.setPixmap(QPixmap(movie["banner"]))
-        
-        # Format and set the description with word wrapping
-        description = movie.get("description", "No description available")
-        split_description = description.split(" ")
-        description = "\n".join([" ".join(split_description[i:i+10]) for i in range(0, len(split_description), 10)])
-        self.lbl_description.setText(f"Description: {description}")
-        
-        # Find and setup favorite button
-        self.btn_favorite = self.findChild(QPushButton, "btn_favorite")
-        if self.btn_favorite:
-            is_fav = is_favorite(self.user_id, movie_id)
-            icon = QIcon("img/heart-solid.svg" if is_fav else "img/heart-regular.svg")
-            self.btn_favorite.setIcon(icon)
-            self.btn_favorite.clicked.connect(lambda: self.toggle_favorite(movie_id))
-        
+        self.lbl_name.setText(str(movie.get("title", "")))
+        self.lbl_director.setText(f"Director: {movie.get('director', '')}")
+        self.lbl_release_date.setText(f"Release Date: {movie.get('release_date', '')}")
+        self.lbl_genre.setText(f"Genre: {movie.get('genres', '')}")
+        self.lbl_rating.setText(f"Rating: {movie.get('rate', '')}")
+        self.lbl_duration.setText(f"Duration: {movie.get('duration', '')}")
+        self.lbl_status.setText(f"Status: {movie.get('status', '')}")
+        self.lbl_main_actor.setText(f"Main Actor: {movie.get('actors', '')}")
+        self.lbl_description.setText(f"Description: {movie.get('description', '')}")
+
+        # Set the banner image (local only)
+        banner_path = movie.get('banner_path', '')
+        if banner_path:
+            pixmap = QPixmap(banner_path)
+            self.lbl_image.setPixmap(pixmap)
+        else:
+            self.lbl_image.clear()
+
         # Switch to detail page
-        self.stackedWidget.setCurrentIndex(1)
+        self.main_widget.setCurrentIndex(1)
         
+        # Trong detail_movie, sau khi setText cho các label:
+        self.btn_watch = self.findChild(QPushButton, "btn_watch")
+        if self.btn_watch:
+            self.btn_watch.setText("Xem phim")
+            self.btn_watch.clicked.disconnect()
+            self.btn_watch.clicked.connect(lambda: self.loadVideo())
+                
     def toggle_favorite(self, movie_id):
         is_fav = is_favorite(self.user_id, movie_id)
         if is_fav:
@@ -556,7 +565,6 @@ class Home(QMainWindow) :
             return
         try:
             movie = get_video_by_id(self.movie_id)
-            # Normalize video path
             video_path = normalize_path(movie["video_path"])
             self.mediaPlayer.setSource(QUrl.fromLocalFile(video_path))
             self.mediaPlayer.play()
@@ -567,10 +575,10 @@ class Home(QMainWindow) :
             self.mediaPlayer.positionChanged.connect(self.positionChanged)
             self.mediaPlayer.durationChanged.connect(self.durationChanged)
             self.mediaPlayer.errorOccurred.connect(self.handleError)
-            self.stackedWidget.setCurrentIndex(3)
+            self.main_widget.setCurrentIndex(2)
         except Exception as e:
             print(f"Error loading video: {e}")
-            self.msg.error_message(f"Could not load video: {str(e)}")
+            self.msg.error_box(f"Could not load video: {str(e)}")
         
     def mediaStateChanged(self):
         if self.mediaPlayer.playbackState() == QMediaPlayer.PlaybackState.PlayingState:
@@ -649,10 +657,10 @@ class Home(QMainWindow) :
     def catch_detail_movie(self, movie_id):
         self.movie_id = movie_id
         self.detail_movie(self.movie_id)
-        self.stackedWidget.setCurrentIndex(1)
+        self.main_widget.setCurrentIndex(1)
                 
     def navigateScreen(self, page:int):
-        self.stackedWidget.setCurrentIndex(page)
+        self.main_widget.setCurrentIndex(page)
 
     def showFavorites(self):
         # Get favorite movies
@@ -679,7 +687,7 @@ class Home(QMainWindow) :
                 itemWidget = MovieItemWidget(
                     movie["id"], 
                     movie["title"], 
-                    movie["banner"],  
+                    movie["banner_path"],  
                     movie["video_path"],  
                     movie.get("description", "")
                 )
@@ -694,15 +702,16 @@ class Home(QMainWindow) :
                     column = 0
         
         # Switch to favorites page
-        self.stackedWidget.setCurrentIndex(2)
+        self.main_widget.setCurrentIndex(4)
         
     def on_favorite_changed(self):
         # If we're on the favorites page, refresh it
-        if self.stackedWidget.currentIndex() == 2:
+        if self.main_widget.currentIndex() == 4:
             self.showFavorites()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     login = Login()
+    login = Home(1)
     login.show()
     sys.exit(app.exec())

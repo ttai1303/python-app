@@ -10,6 +10,11 @@
     <height>716</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>.AppleSystemUIFont</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -105,14 +110,19 @@
      <string>Danh sách của tôi</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_find">
+   <widget class="QPushButton" name="btn_search">
     <property name="geometry">
      <rect>
-      <x>940</x>
+      <x>1100</x>
       <y>10</y>
-      <width>41</width>
-      <height>29</height>
+      <width>51</width>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 0;
+margin: 0;
+</string>
     </property>
     <property name="text">
      <string/>
@@ -125,7 +135,7 @@
    <widget class="QPushButton" name="btn_nav_profile">
     <property name="geometry">
      <rect>
-      <x>1040</x>
+      <x>1160</x>
       <y>10</y>
       <width>41</width>
       <height>29</height>
@@ -162,119 +172,79 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="home">
-     <widget class="QLabel" name="label_4">
+     <widget class="QWidget" name="videoWidget" native="true">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>80</y>
-        <width>271</width>
-        <height>161</height>
+        <x>9</x>
+        <y>9</y>
+        <width>1191</width>
+        <height>641</height>
        </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap>../img/fnf8.jpg</pixmap>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btn_nav_play">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>240</y>
-        <width>83</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Play</string>
       </property>
      </widget>
     </widget>
     <widget class="QWidget" name="detail">
-     <widget class="QLabel" name="label_13">
+     <widget class="QLabel" name="lbl_detail_image">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>511</width>
-        <height>351</height>
+        <x>20</x>
+        <y>20</y>
+        <width>400</width>
+        <height>225</height>
        </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap>../img/fnf8-pos.jpg</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_14">
+     <widget class="QWidget" name="detail_info_panel">
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>0</y>
-        <width>301</width>
-        <height>51</height>
+        <x>440</x>
+        <y>20</y>
+        <width>700</width>
+        <height>400</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Fast &amp; Furious 8 (2017)</string>
-      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_detail_info">
+       <item>
+        <widget class="QLabel" name="lbl_detail_name"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_detail_director"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_detail_release_date"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_detail_genre"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_detail_rating"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_detail_duration"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_detail_status"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_detail_main_actor"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_detail_description"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_watch"/>
+       </item>
+      </layout>
      </widget>
-     <widget class="QLabel" name="label_15">
-      <property name="geometry">
-       <rect>
-        <x>520</x>
-        <y>10</y>
-        <width>641</width>
-        <height>291</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Thời gian ra mắt: 14 tháng 04 năm 2017&lt;br/&gt;Thể loại : Hành động, phiêu lưu, tội phạm&lt;br/&gt;Độ dài: 136 phút&lt;br/&gt;Quốc gia: American&lt;br/&gt;Đạo diễn: F. Gary Gray&lt;br/&gt;Diễn viên chính: Vin Diesel, Jason Statham, Dwayne Johnson,...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btn_watch">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>360</y>
-        <width>511</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Xem phim</string>
-      </property>
-     </widget>
-     <zorder>label_15</zorder>
-     <zorder>label_13</zorder>
-     <zorder>label_14</zorder>
-     <zorder>btn_watch</zorder>
     </widget>
     <widget class="QWidget" name="watch">
-     <widget class="QSlider" name="horizontalSlider">
+     <widget class="QSlider" name="durationBar">
       <property name="geometry">
        <rect>
         <x>200</x>
@@ -299,12 +269,12 @@
        <enum>Qt::Orientation::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QLabel" name="label_16">
+     <widget class="QLabel" name="timeLabel">
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>92</x>
         <y>560</y>
-        <width>63</width>
+        <width>111</width>
         <height>21</height>
        </rect>
       </property>
@@ -312,7 +282,7 @@
        <string>0:00:00</string>
       </property>
      </widget>
-     <widget class="QSlider" name="horizontalSlider_2">
+     <widget class="QSlider" name="volumeBar">
       <property name="geometry">
        <rect>
         <x>960</x>
@@ -334,20 +304,20 @@
        <enum>Qt::Orientation::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QWidget" name="widget" native="true">
+     <widget class="QWidget" name="video_container" native="true">
       <property name="geometry">
        <rect>
-        <x>150</x>
-        <y>60</y>
-        <width>921</width>
-        <height>481</height>
+        <x>10</x>
+        <y>30</y>
+        <width>1181</width>
+        <height>511</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">background: white;</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btn_play">
+     <widget class="QPushButton" name="playBtn">
       <property name="geometry">
        <rect>
         <x>590</x>
@@ -364,7 +334,7 @@
         <normaloff>../img/play_btn.svg</normaloff>../img/play_btn.svg</iconset>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="volumeBtn">
       <property name="geometry">
        <rect>
         <x>930</x>
@@ -381,12 +351,26 @@
         <normaloff>../img/volume-high-solid.svg</normaloff>../img/volume-high-solid.svg</iconset>
       </property>
      </widget>
-     <zorder>label_16</zorder>
-     <zorder>horizontalSlider</zorder>
-     <zorder>horizontalSlider_2</zorder>
-     <zorder>widget</zorder>
-     <zorder>btn_play</zorder>
-     <zorder>pushButton_2</zorder>
+     <widget class="QLabel" name="videoName">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>601</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+     <zorder>timeLabel</zorder>
+     <zorder>durationBar</zorder>
+     <zorder>volumeBar</zorder>
+     <zorder>video_container</zorder>
+     <zorder>playBtn</zorder>
+     <zorder>volumeBtn</zorder>
+     <zorder>videoName</zorder>
     </widget>
     <widget class="QWidget" name="profile">
      <widget class="QPushButton" name="btn_avatar">
@@ -726,6 +710,28 @@ padding: 5px;</string>
      <zorder>lb_avatar</zorder>
      <zorder>gridWidget</zorder>
     </widget>
+    <widget class="QWidget" name="favorite">
+     <widget class="QWidget" name="favorite_container" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1191</width>
+        <height>651</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>10</y>
+      <width>241</width>
+      <height>21</height>
+     </rect>
+    </property>
    </widget>
   </widget>
  </widget>

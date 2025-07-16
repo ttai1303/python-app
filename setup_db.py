@@ -63,7 +63,7 @@ def get_all_videos():
     conn = sqlite3.connect('./data/database.db')
     cursor = conn.cursor()
     cursor.row_factory = dict_factory
-    cursor.execute('SELECT * FROM video')
+    cursor.execute('SELECT * FROM movies')
     videos = cursor.fetchall()
     conn.close()
     return videos
@@ -72,7 +72,7 @@ def get_video_by_id(video_id):
     conn = sqlite3.connect('./data/database.db')
     cursor = conn.cursor()
     cursor.row_factory = dict_factory
-    cursor.execute('SELECT * FROM video WHERE id = ?', (video_id,))
+    cursor.execute('SELECT * FROM movies WHERE id = ?', (video_id,))
     video = cursor.fetchone()
     conn.close()
     return video
@@ -81,7 +81,7 @@ def get_video_by_name(name):
     conn = sqlite3.connect('./data/database.db')
     cursor = conn.cursor()
     cursor.row_factory = dict_factory
-    cursor.execute('SELECT * FROM video WHERE title LIKE ?', (f'%{name}%',))
+    cursor.execute('SELECT * FROM movies WHERE title LIKE ?', (f'%{name}%',))
     videos = cursor.fetchall()
     conn.close()
     return videos
@@ -115,7 +115,7 @@ def get_user_favorites(user_id):
     favorite_video_ids = [row['video_id'] for row in cursor.fetchall()]
     
     # Then get all videos and filter
-    cursor.execute('SELECT * FROM video')
+    cursor.execute('SELECT * FROM movies')
     all_videos = cursor.fetchall()
     conn.close()
     
